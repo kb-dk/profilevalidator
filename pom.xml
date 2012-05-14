@@ -14,9 +14,9 @@
 	<packaging>pom</packaging>
 
     <scm>
-        <connection>scm:git:git://github.com/statsbiblioteket/SB-yousee-workflow.git</connection>
-        <url>scm:git:git://github.com/statsbiblioteket:SB-yousee-workflow.git</url>
-        <developerConnection>scm:git:git://github.com/statsbiblioteket/SB-yousee-workflow.git</developerConnection>
+        <connection>scm:git:git://github.com/statsbiblioteket/SB-yousee-profile-validation.git</connection>
+        <url>scm:git:git://github.com/statsbiblioteket/SB-yousee-profile-validation.git</url>
+        <developerConnection>scm:git:git://github.com/statsbiblioteket/SB-yousee-profile-validation.git</developerConnection>
     </scm>
 
   <repositories>
