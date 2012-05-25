@@ -18,7 +18,7 @@ source $SCRIPT_PATH/logging.sh
 
 breakup() {
   if [ -n "$1" ]; then
-    error "$1"
+    error "$*"
     rm -r $TEMPDIR
     exit 1
   fi
@@ -44,6 +44,7 @@ ERRORS=`xsltproc $TEMPDIR/step3.xsl $XML 2> $TEMPDIR/result.xml 2>&1`
 breakup "$ERRORS"
 
 if [ -s $TEMPDIR/result.xml ]; then
+    error "`cat $TEMPDIR/result.xml`"
     cat $TEMPDIR/result.xml
     rm -r $TEMPDIR
 else
