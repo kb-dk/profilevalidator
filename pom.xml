@@ -8,8 +8,8 @@
         <version>3</version>
     </parent>
 
-    <groupId>dk.statsbiblioteket.mediespring</groupId>
-    <artifactId>SB-yousee-profile-validation</artifactId>
+    <groupId>dk.statsbiblioteket.medieplatform</groupId>
+    <artifactId>Yousee_Profile_Validator</artifactId>
     <version>0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
