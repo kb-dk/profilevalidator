@@ -2,45 +2,21 @@
 
 XML=$1
 CONFIG=$2
+CHANNELID=$3
 
 source $CONFIG
 
-pushd . > /dev/null
-SCRIPT_PATH="${BASH_SOURCE[0]}";
-if ([ -h "${SCRIPT_PATH}" ]) then
-  while([ -h "${SCRIPT_PATH}" ]) do cd `dirname "$SCRIPT_PATH"`; SCRIPT_PATH=`readlink "${SCRIPT_PATH}"`; done
-fi
-cd `dirname ${SCRIPT_PATH}` > /dev/null
-SCRIPT_PATH=`pwd`;
-popd  > /dev/null
+SCRIPT_PATH="$(dirname $(readlink -f $0))"
 
-source $SCRIPT_PATH/logging.sh
-
-breakup() {
-  if [ -n "$1" ]; then
-    error "$*"
-    rm -r $TEMPDIR
-    exit 1
-  fi
-}
-
+source $SCRIPT_PATH/common.sh
 
 TEMPDIR=`mktemp -d`
 
-#transform the profile to xslt
-ERRORS=`xsltproc -o $TEMPDIR/step1.xsl $SCRIPT_PATH/schematron/iso_dsdl_include.xsl $PROFILE 2>&1`
-breakup "$ERRORS"
-
-ERRORS=`xsltproc -o $TEMPDIR/step2.xsl $SCRIPT_PATH/schematron/iso_abstract_expand.xsl $TEMPDIR/step1.xsl 2>&1`
-breakup "$ERRORS"
-
-ERRORS=`xsltproc -o $TEMPDIR/step3.xsl $SCRIPT_PATH/schematron/iso_schematron_message.xsl $TEMPDIR/step2.xsl 2>&1`
-breakup "$ERRORS"
-
-#notify "transformation done"
+#compile the profile
+$SCRIPT_PATH/compileProfile.sh $CONFIG $CHANNELID $TEMPDIR
 
 #evaluate the profile
-ERRORS=`xsltproc $TEMPDIR/step3.xsl $XML 2> $TEMPDIR/result.xml 2>&1`
+ERRORS=`xsltproc $TEMPDIR/compiledProfile_$CHANNELID.xsl $XML 2> $TEMPDIR/result.xml 2>&1`
 breakup "$ERRORS"
 
 if [ -s $TEMPDIR/result.xml ]; then
