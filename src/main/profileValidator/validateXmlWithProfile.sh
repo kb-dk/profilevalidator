@@ -15,6 +15,13 @@ TEMPDIR=`mktemp -d`
 #compile the profile
 $SCRIPT_PATH/compileProfile.sh $CONFIG $CHANNELID $TEMPDIR
 
+
+if [ ! -e "compiledProfile_$CHANNELID.xsl" ];
+then
+    CHANNELID="default"
+fi
+
+
 #evaluate the profile
 ERRORS=`xsltproc $TEMPDIR/compiledProfile_$CHANNELID.xsl $XML 2> $TEMPDIR/result.xml 2>&1`
 breakup "$ERRORS"
