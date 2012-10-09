@@ -10,8 +10,8 @@
         <fileSet>
             <outputDirectory></outputDirectory>
             <directory>src/main/profileValidator</directory>
-            <fileMode>0700</fileMode>
-            <directoryMode>0700</directoryMode>
+            <fileMode>0755</fileMode>
+            <directoryMode>0755</directoryMode>
         </fileSet>
      
     </fileSets>
