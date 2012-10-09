@@ -6,12 +6,22 @@ CONFIG=$3
 CHANNELID=$4
 
 source $CONFIG
-mkdir $logDir
-mkdir $CACHEDIR
+mkdir -p $logDir
+mkdir -p $CACHEDIR
+
 
 SCRIPT_PATH="$(dirname $(readlink -f $0))"
-
+source $SCRIPT_PATH/logging.sh
 source $SCRIPT_PATH/common.sh
+source $SCRIPT_PATH/compileProfile.sh
+
+
+breakup() {
+  if [ -n "$1" ]; then
+    error "$*"
+  fi
+  exit 1
+}
 
 
 
@@ -19,7 +29,8 @@ source $SCRIPT_PATH/common.sh
 
 
 #compile the profile
-$SCRIPT_PATH/compileProfile.sh $CONFIG $CHANNELID $CACHEDIR
+compileProfile $CHANNELID $CACHEDIR
+
 
 if [ ! -e "$CACHEDIR/compiledProfile_$CHANNELID.xsl" ];
 then

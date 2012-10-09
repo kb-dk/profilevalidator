@@ -1,17 +1,11 @@
 #!/bin/bash
 
-CONFIG=$1
-CHANNELID=$2
-OUTDIR=$3
+function compileProfile(){
 
+local CHANNELID=$1
+local OUTDIR=$2
 
-source $CONFIG
-
-SCRIPT_PATH="$(dirname $(readlink -f $0))"
-
-source $SCRIPT_PATH/common.sh
-
-SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
+local SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
 
 
 inf "Compiling for channel $CHANNELID"
@@ -44,3 +38,4 @@ breakup "$ERRORS"
 rm "$OUTDIR/step2_$CHANNELID.xsl"
 
 #notify "transformation done"
+}
