@@ -4,7 +4,6 @@ CONFIG=$1
 CHANNELID=$2
 OUTDIR=$3
 
-SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
 
 source $CONFIG
 
@@ -12,15 +11,24 @@ SCRIPT_PATH="$(dirname $(readlink -f $0))"
 
 source $SCRIPT_PATH/common.sh
 
+SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
+
+
+inf "Compiling for channel $CHANNELID"
+inf "Compiling specific profile '$PROFILE_DIR/$SPECIFIC_PROFILE' "
+
+
 if [ ! -e $PROFILE_DIR/$SPECIFIC_PROFILE  ];
 then
+    warn "$CHANNELID does not have a profile, using default"
     CHANNELID="default"
     SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
 fi
 
 if [ $OUTDIR/compiledProfile_$CHANNELID.xsl -nt $PROFILE_DIR/$SPECIFIC_PROFILE ];
 then
-  return
+    debug "$CHANNELID is already compiled, will not recompile"
+    return
 fi
 
 #transform the profile to xslt

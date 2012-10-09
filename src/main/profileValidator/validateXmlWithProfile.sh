@@ -1,38 +1,44 @@
 #!/bin/bash
 
-XML=$1
-CONFIG=$2
-CHANNELID=$3
+ENTITY=$1
+XML=$2
+CONFIG=$3
+CHANNELID=$4
 
 source $CONFIG
+mkdir $logDir
+mkdir $CACHEDIR
 
 SCRIPT_PATH="$(dirname $(readlink -f $0))"
 
 source $SCRIPT_PATH/common.sh
 
-TEMPDIR=`mktemp -d`
+
+
+
+
 
 #compile the profile
-$SCRIPT_PATH/compileProfile.sh $CONFIG $CHANNELID $TEMPDIR
+$SCRIPT_PATH/compileProfile.sh $CONFIG $CHANNELID $CACHEDIR
 
-
-if [ ! -e "compiledProfile_$CHANNELID.xsl" ];
+if [ ! -e "$CACHEDIR/compiledProfile_$CHANNELID.xsl" ];
 then
     CHANNELID="default"
 fi
 
 
+
 #evaluate the profile
-ERRORS=`xsltproc $TEMPDIR/compiledProfile_$CHANNELID.xsl $XML 2> $TEMPDIR/result.xml 2>&1`
+ERRORS=`xsltproc $CACHEDIR/compiledProfile_$CHANNELID.xsl $XML 2> $logDir/$ENTITY.xml 2>&1`
 breakup "$ERRORS"
 
-if [ -s $TEMPDIR/result.xml ]; then
-    error "`cat $TEMPDIR/result.xml`"
-    cat $TEMPDIR/result.xml
-    rm -r $TEMPDIR
+if [ -s $logDir/$ENTITY.xml ]; then
+    error "`cat $logDir/$ENTITY.xml`"
+    cat $logDir/$ENTITY.xml
 else
     echo "{"
     echo "\"valid\" : true"
     echo "}"
-    rm -r $TEMPDIR
+    rm $logDir/$ENTITY.xml
 fi
+#rm -r $TEMPDIR
