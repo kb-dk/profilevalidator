@@ -12,7 +12,6 @@ mkdir -p $CACHEDIR
 
 SCRIPT_PATH="$(dirname $(readlink -f $0))"
 source $SCRIPT_PATH/logging.sh
-source $SCRIPT_PATH/common.sh
 source $SCRIPT_PATH/compileProfile.sh
 
 
