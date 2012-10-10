@@ -2,14 +2,17 @@
 
 function compileProfile(){
 
-local CHANNELID=$1
-local OUTDIR=$2
+local CHANNELID
+CHANNELID=$1
+local OUTDIR
+OUTDIR=$2
 
-local SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
+local SPECIFIC_PROFILE
+SPECIFIC_PROFILE="${CHANNELID}_${PROFILE}"
 
 
-inf "Compiling for channel $CHANNELID"
-inf "Compiling specific profile '$PROFILE_DIR/$SPECIFIC_PROFILE' "
+debug "Compiling for channel $CHANNELID"
+debug "Compiling specific profile '$PROFILE_DIR/$SPECIFIC_PROFILE' "
 
 
 if [ ! -e $PROFILE_DIR/$SPECIFIC_PROFILE  ];
@@ -38,4 +41,12 @@ breakup "$ERRORS"
 rm "$OUTDIR/step2_$CHANNELID.xsl"
 
 #notify "transformation done"
+}
+
+
+breakup() {
+  if [ -n "$1" ]; then
+    error "$*"
+    exit 1
+  fi
 }
