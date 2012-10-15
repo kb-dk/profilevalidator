@@ -27,18 +27,19 @@ fi
 
 
 #evaluate the profile
-ERRORS=`xsltproc $CACHEDIR/compiledProfile_$CHANNELID.xsl $XML 2> $logDir/$ENTITY.xml 2>&1`
+xsltproc $CACHEDIR/compiledProfile_$CHANNELID.xsl $XML > $logDir/$ENTITY.xml 2> "$logDir/$ENTITY-errors.xml"
 
-if [ -n "$ERRORS" -o -s "$logDir/$ENTITY.xml" ]; then
-    echo "$ERRORS" >> "$logDir/$ENTITY-errors.xml"
-    error "$ERRORS \n `cat $logDir/$ENTITY.xml`"
+if [ -s "$logDir/$ENTITY-errors.xml" -o -s "$logDir/$ENTITY.xml" ]; then
+    error "$(cat $logDir/$ENTITY.xml) \n $(cat $logDir/$ENTITY.xml)"
     cat "$logDir/$ENTITY.xml"
+    cat "$logDir/$ENTITY-errors.xml" 1>&2
     exit 1
 else
     echo "{"
     echo "\"valid\" : true"
     echo "}"
     rm "$logDir/$ENTITY.xml"
+    rm "$logDir/$ENTITY-errors.xml"
 fi
 
 #rm -r $TEMPDIR
