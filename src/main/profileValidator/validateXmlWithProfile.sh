@@ -14,6 +14,14 @@ SCRIPT_PATH="$(dirname $(readlink -f $BASH_SOURCE[0]))"
 source $SCRIPT_PATH/logging.sh
 source $SCRIPT_PATH/compileProfile.sh
 
+if [ -r "$SCHEMA" ]; then
+    xmllint --noout --schema="$SCHEMA" "$XML"
+    RETURNCODE=$?
+    if [ $RETURNCODE -ne 0 ]; then
+        exit $RETURNCODE
+    fi
+fi
+
 
 #compile the profile
 compileProfile $CHANNELID $CACHEDIR
