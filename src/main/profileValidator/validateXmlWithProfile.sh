@@ -15,7 +15,7 @@ source $SCRIPT_PATH/logging.sh
 source $SCRIPT_PATH/compileProfile.sh
 
 if [ -r "$SCHEMA" ]; then
-    xmllint --noout --schema="$SCHEMA" "$XML"
+    xmllint --noout --schema "$SCHEMA" "$XML"
     RETURNCODE=$?
     if [ $RETURNCODE -ne 0 ]; then
         exit $RETURNCODE
