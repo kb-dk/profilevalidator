@@ -15,11 +15,18 @@ source $SCRIPT_PATH/logging.sh
 source $SCRIPT_PATH/compileProfile.sh
 
 if [ -r "$SCHEMA" ]; then
-    xmllint --noout --schema "$SCHEMA" "$XML"
+    errorFile=$(mktemp)
+    xmllint --noout --schema "$SCHEMA" "$XML" 2>&1 > $errorFile
     RETURNCODE=$?
     if [ $RETURNCODE -ne 0 ]; then
+        cat $errorFile >&2
+        rm $errorFile
         exit $RETURNCODE
     fi
+    rm $errorFile
+else
+    echo "Could not read schema from config path '$SCHEMA', failing" >&2
+    exit 2
 fi
 
 
