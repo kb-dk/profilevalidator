@@ -16,7 +16,7 @@ source $SCRIPT_PATH/compileProfile.sh
 
 if [ -r "$SCHEMA" ]; then
     errorFile=$(mktemp)
-    xmllint --noout --schema "$SCHEMA" "$XML" 2>&1 > $errorFile
+    xmllint --noout --schema "$SCHEMA" "$XML" &> $errorFile
     RETURNCODE=$?
     if [ $RETURNCODE -ne 0 ]; then
         cat $errorFile >&2
