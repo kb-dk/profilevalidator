@@ -26,7 +26,7 @@ if [ -r "$SCHEMA" ]; then
     rm $errorFile
 else
     echo "Could not read schema from config path '$SCHEMA', failing" >&2
-    exit 2
+    #exit 2
 fi
 
 

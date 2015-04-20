@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ffprobe:ffprobe xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ffprobe='http://www.ffmpeg.org/schema/ffprobe' xsi:schemaLocation='http://www.ffmpeg.org/schema/ffprobe ffprobe.xsd'>
+    <streams>
+        <stream index="0" codec_name="h264" codec_long_name="H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10" profile="Main" codec_type="video" codec_time_base="1/50" codec_tag_string="[27][0][0][0]" codec_tag="0x001b" width="720" height="576" has_b_frames="1" sample_aspect_ratio="12:11" display_aspect_ratio="15:11" pix_fmt="yuv420p" level="40" chroma_location="left" refs="2" id="0x1011" r_frame_rate="25/1" avg_frame_rate="25/1" time_base="1/90000" start_pts="5780312" start_time="64.225689" duration_ts="16206784" duration="180.075378" bits_per_raw_sample="8">
+            <disposition default="0" dub="0" original="0" comment="0" lyrics="0" karaoke="0" forced="0" hearing_impaired="0" visual_impaired="0" clean_effects="0" attached_pic="0"/>
+        </stream>
+        <stream index="1" codec_name="mp2" codec_long_name="MP2 (MPEG audio layer 2)" codec_type="audio" codec_time_base="1/48000" codec_tag_string="[3][0][0][0]" codec_tag="0x0003" sample_fmt="s16p" sample_rate="48000" channels="2" channel_layout="stereo" bits_per_sample="0" id="0x1100" r_frame_rate="0/0" avg_frame_rate="0/0" time_base="1/90000" start_pts="5778120" start_time="64.201333" duration_ts="16197834" duration="179.975933" bit_rate="384000">
+            <disposition default="0" dub="0" original="0" comment="0" lyrics="0" karaoke="0" forced="0" hearing_impaired="0" visual_impaired="0" clean_effects="0" attached_pic="0"/>
+        </stream>
+    </streams>
+
+    <format filename="testfiles/Colossus_20140923_1039.ts" nb_streams="2" nb_programs="1" format_name="mpegts" format_long_name="MPEG-TS (MPEG-2 Transport Stream)" start_time="64.201333" duration="180.099734" size="133597876" bit_rate="5934395" probe_score="100"/>
+</ffprobe:ffprobe>
